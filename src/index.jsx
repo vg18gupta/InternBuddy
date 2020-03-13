@@ -1,13 +1,25 @@
-// ########## Import Dependencies Here ##########
-import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import React from 'react';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
+import logger from 'redux-logger';
 
-// ########## Import Screens Here ##########
+import rootReducer from './js/reducers';
+import App from './js/components/App';
+import rootSaga from './js/sagas';
 
-// ########## Import Components Here ##########
-import App from './js/components/app';
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(rootReducer, applyMiddleware(sagaMiddleware, logger));
+
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
-  <App />,
-  document.querySelector('#app')
-)
+	<Provider store={store}>
+		<App />
+	</Provider>,
+	document.querySelector('#app')
+);
+
+export default store;

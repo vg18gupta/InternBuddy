@@ -1,27 +1,76 @@
-// ########## Import Dependencies Here ##########
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+// import PropTypes from 'prop-types';
+import {
+  BrowserRouter as Router,
+  // Link,
+  Route,
+  Switch
+} from 'react-router-dom';
 
-// ########## Import Screens Here ##########
+import Header from './header';
+// import HeroImage from './hero/HeroImage';
+// import Promo from './promo/Promo';
+// import Calender from './calender/Calender';
+// import Blog from './Whatshappen/Blog';
+// import Gallery from './gallery/Gallery';
+import Footer from './footer/Footer';
+import Home from './Home/Home';
+import Junior from './Junior/Junior';
+import Middle from './middle/Middle';
+import Staff from './staff/Staff';
+import Achievers from './achievers/Achievers';
+import Events from './events/Events';
+import Contact from './contact/Contact';
+import Policies from './policies/Policies';
+import OurSchool from './ourschool/OurSchool';
+import Senior from './Senior/Senior';
+import SignIn from './signin/SignIn';
+import Dashboard from './dashboard/Dashboard';
 
-// ########## Import Components Here ##########
-import WinsomeSchool from './WinsomeSchool';
-import JuniorSchool from './JuniorSchool';
-import { promoData } from './promoData';
+class App extends Component {
+  // constructor() {
+  //   super();
+  // }
 
-export default class App extends Component {
+  componentDidMount() {}
+
   render() {
+    // let { } = this.props;
+
     return (
-      <div>
-        <WinsomeSchool 
-          promoData={promoData}
-          id={promoData[0].id}
-        />
-        <JuniorSchool />
-        <WinsomeSchool 
-          promoData={promoData}
-          id={promoData[1].id}
-        />
-      </div>
+      <Router>
+        <div className="app">
+          <Header />
+          <Switch>
+            <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/sign-in" component={SignIn} />
+            <Route exact path="/junior" component={Junior} />
+            <Route exact path="/middle" component={Middle} />
+            <Route exact path="/staff" component={Staff} />
+            <Route exact path="/annual-achievers" component={Achievers} />
+            <Route exact path="/events" component={Events} />
+            <Route exact path="/contact" component={Contact} />
+            <Route exact path="/policies" component={Policies} />
+            <Route exact path="/school" component={OurSchool} />
+            <Route exact path="/senior" component={Senior} />
+            <Route path="/" component={Home} />
+          </Switch>
+          <Footer />
+        </div>
+      </Router>
     );
   }
 }
+
+// App.propTypes = {
+//   //getAction: PropTypes.func.isRequired,
+// };
+
+function mapStateToProps(state) {
+  return {
+    test: state.test
+  };
+}
+
+export default connect(mapStateToProps, {})(App);
